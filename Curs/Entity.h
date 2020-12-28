@@ -5,7 +5,7 @@
 class Entity {  ///Класс сущности//
 protected:
 	float dx, dy, x, y, speed;  //dx,dy изменение направления, x,y координаты, speed скорость изменения
-	int w, h, stone; //w-ширина, h-длина нашей сущности
+	int w, h; //w-ширина, h-длина нашей сущности
 	Texture texture;//текстура сущности
 	Map mp; //объект класса карта
 	float CurrentFrame;//текущий кадр  

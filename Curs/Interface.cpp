@@ -89,9 +89,11 @@ void Interface::interact(){
 
 		std::ostringstream playerScoreString, gameTimeString;
 		playerScoreString << p.getScore(); gameTimeString << gameTime;//Получаем счёт и время в игре
-		text.setString("Score: " + playerScoreString.str() + "                                                                             Time: " + gameTimeString.str());//задаем строку тексту  
+		text.setString("Score: " + playerScoreString.str() + "                                                                        Time: " + gameTimeString.str());//задаем строку тексту  
 		text.setPosition(5, 2);//задаем позицию текста  
 		window.draw(text);//рисуем этот текст 
+
+		if (p.getScore() == 176) p.setLife(false);
 		if (p.getGame()){
 			menu.setString("Press ENTER for start");
 			menu.setPosition(100, 315);//задаем позицию текста  
