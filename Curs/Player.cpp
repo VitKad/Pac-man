@@ -60,3 +60,51 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 		}
 	}
 }
+
+void Player::update(float time)//метод "оживлени€/обновлени€" объекта класса.  
+{
+	if (life)
+	{//провер€ем, жив ли герой 
+		control();
+		x += dx*time; //движение по УXФ    
+		dir = 1;
+		checkCollisionWithMap(dx, 0);//обрабатываем столкновение по ’   
+		y += dy*time; //движение по УYФ   
+		dir = 2;
+		checkCollisionWithMap(0, dy);//обрабатываем столкновение по Y 
+
+		if (dx > 0)	{//состо€ние идти вправо    
+
+			dx = speed;
+			dy = 0;
+			CurrentFrame += 0.005*time;
+			if (CurrentFrame > 3) CurrentFrame -= 3;
+			sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
+		}
+		if (dx < 0)
+		{//состо€ние идти влево    
+			dx = -speed;
+			dy = 0;
+			CurrentFrame += 0.005*time;
+			if (CurrentFrame > 3) CurrentFrame -= 3;
+			sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 32, 0, -32, 32));
+		}
+		if (dy < 0)
+		{//идти вверх    
+			dy = -speed;
+			dx = 0;
+			CurrentFrame += 0.005*time;
+			if (CurrentFrame > 3) CurrentFrame -= 3;
+			sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 32, 32, 32));
+		}
+		if (dy > 0)
+		{//идти вниз    
+			dy = speed;
+			dx = 0;
+			CurrentFrame += 0.005*time;
+			if (CurrentFrame > 3) CurrentFrame -= 3;
+			sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 64, 32, 32));
+		}
+	}
+	sprite.setPosition(x, y); //спрайт в позиции (x, y). 		  
+}
