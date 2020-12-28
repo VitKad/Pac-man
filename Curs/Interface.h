@@ -1,6 +1,7 @@
 #ifndef INTERFACE_H   
 #define INTERFACE_H  
 #include "Enemy.h"
+#include "Player.h"
 #include "Entity.h"
 #include "stdafx.h"
 
@@ -9,7 +10,6 @@ class Interface
 {
 private:
 	Font font;//Шрифт для строк
-	Image map_image, heroImage;  //Изображение карты и героя
 	Texture map;//текстура карты  
 	Sprite s_map;//спрайт карты  
 	Clock clock, gameTimeClock;  //таймеры
