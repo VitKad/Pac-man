@@ -10,6 +10,7 @@ using namespace sf;
 class Interface
 {
 private:
+	Player* p;
 	Font font;//Ўрифт дл€ строк
 	Texture map;//текстура карты  
 	Sprite s_map;//спрайт карты  
