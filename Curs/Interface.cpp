@@ -27,6 +27,11 @@ void Interface::interact(){
 
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	sf::RenderWindow window(sf::VideoMode(608, 704, desktop.bitsPerPixel), "PacMan");
+
+	Text text("", font, 20);//создаем объект текст 
+	text.setColor(Color::Yellow);//покрасили текст в красный 
+	text.setStyle(Text::Bold);//жирный текст. 
+
 	Player p(heroImage, 288, 512, 30, 30);//объект класса игрока
 	srand(time(0));
 	enemy.push_back(new Enemy(enemy1, 288, 288, 32, 32)); //создаем врагов и помещаем в список  
@@ -77,6 +82,13 @@ void Interface::interact(){
 			s_map.setPosition(j * 32, i * 32);
 			window.draw(s_map);   //рисовать
 		}
+
+		std::ostringstream playerScoreString, gameTimeString;
+		playerScoreString << p.getScore(); gameTimeString << gameTime;//Получаем счёт и время в игре
+		text.setString("Score: " + playerScoreString.str() + "                                                                               Time: " + gameTimeString.str());//задаем строку тексту  
+		text.setPosition(5, 2);//задаем позицию текста  
+		window.draw(text);//рисуем этот текст 
+
 		window.draw(p.sprite);//рисуем спрайт ПакМэна  
 		for (it = enemy.begin(); it != enemy.end(); it++)
 		{
