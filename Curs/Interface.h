@@ -15,6 +15,7 @@ private:
 	Clock clock, gameTimeClock;  //таймеры
 	int gameTime; //игровое время
 	Map inter;
+	Event event;
 public:
 	Interface();
 	~Interface();
