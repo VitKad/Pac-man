@@ -12,6 +12,7 @@ protected:
 
 public:
 	bool life; //переменная жизни
+	bool game;
 	Sprite sprite;//спрайт сущности   
 	Entity(Image &image, float X, float Y, int W, int H);//конструктор
 	FloatRect getRect() //получение прямуоголника (координаты и размеры)

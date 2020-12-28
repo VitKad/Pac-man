@@ -28,10 +28,11 @@ void Interface::interact(){
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	sf::RenderWindow window(sf::VideoMode(608, 704, desktop.bitsPerPixel), "PacMan");
 
-	Text text("", font, 20);//создаем объект текст 
+	Text text("", font, 20), menu("", font, 30);//создаем объект текст 
 	text.setColor(Color::Yellow);//покрасили текст в красный 
 	text.setStyle(Text::Bold);//жирный текст. 
-
+	menu.setColor(Color::Yellow);//покрасили текст в красный 
+	menu.setStyle(Text::Bold);//жирный текст. 
 	Player p(heroImage, 288, 512, 30, 30);//объект класса игрока
 	srand(time(0));
 	enemy.push_back(new Enemy(enemy1, 288, 288, 32, 32)); //создаем врагов и помещаем в список  
@@ -39,6 +40,8 @@ void Interface::interact(){
 	enemy.push_back(new Enemy(enemy3, 288, 320, 32, 32));
 
 	while (window.isOpen())  { //пока открыто
+		if (p.game == true)
+		if (Keyboard::isKeyPressed(Keyboard::Enter)){ p.life = true; p.game = false; }
 		float time = clock.getElapsedTime().asMicroseconds(); //таймер логики        
 		if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время
 		clock.restart(); //перезапуск таймера
@@ -48,6 +51,7 @@ void Interface::interact(){
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if (Keyboard::isKeyPressed(Keyboard::Q)) window.close();
 		}
 
 		p.update(time); //обновление игрока
@@ -65,7 +69,7 @@ void Interface::interact(){
 				if ((p.getRect().intersects((*it)->getRect())))
 				{
 					p.life = false;
-					std::cout << "Поражение";
+					std::cout << "Game over";
 				}
 			}
 		}
@@ -88,7 +92,16 @@ void Interface::interact(){
 		text.setString("Score: " + playerScoreString.str() + "                                                                             Time: " + gameTimeString.str());//задаем строку тексту  
 		text.setPosition(5, 2);//задаем позицию текста  
 		window.draw(text);//рисуем этот текст 
-
+		if (p.game){
+			menu.setString("Press ENTER for start");
+			menu.setPosition(100, 315);//задаем позицию текста  
+			window.draw(menu);//рисуем этот текст
+		}
+		if ((!p.life) && (!p.game)){
+			menu.setString("Press Q for exit");
+			menu.setPosition(150, 315);//задаем позицию текста  
+			window.draw(menu);//рисуем этот текст
+		}
 		window.draw(p.sprite);//рисуем спрайт ПакМэна  
 		for (it = enemy.begin(); it != enemy.end(); it++)
 		{
