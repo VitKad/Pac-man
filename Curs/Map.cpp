@@ -1,0 +1,26 @@
+#include "map.h"
+
+std::string Map::TileMap[] = {  //массив строк карты
+	"0000000000000000000",
+	"0ssssssss0ssssssss0",
+	"0s00s000s0s000s00s0",
+	"0s00s000s0s000s00s0",
+	"0sssssssssssssssss0",
+	"0s00s0s00000s0s00s0",
+	"0ssss0sss0sss0ssss0",
+	"0000s000 0 000s0000",
+	"   0s0       0s0   ",
+	"0000s0 00 00 0s0000",
+	"0ssssss     ssssss0",
+	"0000s0 00000 0s0000",
+	"   0s0sssssss0s0   ",
+	"0000s0s00000s0s0000",
+	"0ssssssss0ssssssss0",
+	"0s00s000s0s000s00s0",
+	"0ss0sssssssssss0ss0",
+	"00s0s0s00000s0s0s00",
+	"0ssss0sss0sss0ssss0",
+	"0s000000s0s000000s0",
+	"0sssssssssssssssss0",
+	"0000000000000000000",
+};
