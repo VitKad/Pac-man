@@ -9,10 +9,9 @@ protected:
 	Texture texture;//текстура сущности
 	Map mp; //объект класса карта
 	float CurrentFrame;//текущий кадр  
-
-public:
 	bool life; //переменная жизни
 	bool game;
+public:
 	Sprite sprite;//спрайт сущности   
 	Entity(Image &image, float X, float Y, int W, int H);//конструктор
 	FloatRect getRect() //получение прямуоголника (координаты и размеры)
@@ -20,6 +19,10 @@ public:
 		FloatRect FR(x, y, w, h); 
 		return FR;  
 	}
+	bool getLife();
+	void setLife(bool l);
+	bool getGame();
+	void setGame(bool l);
 	virtual void update(float time) = 0; //метод обновления
 };
 

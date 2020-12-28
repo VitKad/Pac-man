@@ -40,10 +40,10 @@ void Interface::interact(){
 	enemy.push_back(new Enemy(enemy3, 288, 320, 32, 32));
 
 	while (window.isOpen())  { //пока открыто
-		if (p.game == true)
-		if (Keyboard::isKeyPressed(Keyboard::Enter)){ p.life = true; p.game = false; }
+		if (p.getGame() == true)
+		if (Keyboard::isKeyPressed(Keyboard::Enter)){ p.setLife(true); p.setGame(false); }
 		float time = clock.getElapsedTime().asMicroseconds(); //таймер логики        
-		if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время
+		if (p.getLife()) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время
 		clock.restart(); //перезапуск таймера
 		time = time / 800;
 
@@ -56,19 +56,19 @@ void Interface::interact(){
 
 		p.update(time); //обновление игрока
 
-		if (p.life)
+		if (p.getLife())
 		for (it = enemy.begin(); it != enemy.end(); it++)
 		{
 			(*it)->update(time); //запускаем метод update()  
 		}
 
-		if (p.life == true)
+		if (p.getLife() == true)
 		{//если игрок жив 
 			for (it = enemy.begin(); it != enemy.end(); it++)
 			{//бежим по списку врагов   
 				if ((p.getRect().intersects((*it)->getRect())))
 				{
-					p.life = false;
+					p.setLife(false);
 					std::cout << "Game over";
 				}
 			}
@@ -92,12 +92,12 @@ void Interface::interact(){
 		text.setString("Score: " + playerScoreString.str() + "                                                                             Time: " + gameTimeString.str());//задаем строку тексту  
 		text.setPosition(5, 2);//задаем позицию текста  
 		window.draw(text);//рисуем этот текст 
-		if (p.game){
+		if (p.getGame()){
 			menu.setString("Press ENTER for start");
 			menu.setPosition(100, 315);//задаем позицию текста  
 			window.draw(menu);//рисуем этот текст
 		}
-		if ((!p.life) && (!p.game)){
+		if ((!p.getLife()) && (!p.getGame())){
 			menu.setString("Press Q for exit");
 			menu.setPosition(150, 315);//задаем позицию текста  
 			window.draw(menu);//рисуем этот текст

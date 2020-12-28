@@ -15,4 +15,20 @@ Entity::Entity(Image &image, float X, float Y, int W, int H)
 	sprite.setTexture(texture); //заливка спрайта дял сущности
 }
 
+bool Entity::getLife(){
+	return life;
+}
 
+
+void Entity::setLife(bool l){
+	life = l;
+}
+
+bool Entity::getGame(){
+	return game;
+}
+
+
+void Entity::setGame(bool l){
+	game = l;
+}
