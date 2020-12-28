@@ -20,3 +20,24 @@ void Player::setScore(int score)
 {
 	playerScore = score;
 }
+
+void Player::control(){ //При нажатии на одну из клавиш, меняется направление движения по координате
+
+	if (Keyboard::isKeyPressed(Keyboard::Left)) 
+	{
+		dx = -0.1;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Right))
+	{
+		dx = 0.1;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Up))
+	{
+		dy = -0.1;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Down))
+	{
+		dy = 0.1;
+
+	}
+}
