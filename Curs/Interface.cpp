@@ -16,10 +16,19 @@ Interface::Interface(){
 	enemy1.loadFromFile("images/enemy1.png"); // загружаем изображение призрака 
 	enemy2.loadFromFile("images/enemy2.png"); 
 	enemy3.loadFromFile("images/enemy3.png");  
+	p = new Player(heroImage, 288, 512, 30, 30);
 }
 
 Interface::~Interface()
 {
+	delete p;
+	while (!enemy.empty())
+	{
+		it = enemy.begin();
+		delete *it;
+		enemy.erase(it);
+	}
+
 };
 
 
@@ -28,44 +37,54 @@ void Interface::interact(){
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	sf::RenderWindow window(sf::VideoMode(608, 704, desktop.bitsPerPixel), "PacMan");
 
-	Text text("", font, 20);//создаем объект текст 
+	Text text("", font, 20), menu("", font, 30);//создаем объект текст 
 	text.setColor(Color::Yellow);//покрасили текст в красный 
 	text.setStyle(Text::Bold);//жирный текст. 
-
-	Player p(heroImage, 288, 512, 30, 30);//объект класса игрока
+	menu.setColor(Color::Yellow);//покрасили текст в красный 
+	menu.setStyle(Text::Bold);//жирный текст. 
+	//Player p(heroImage, 288, 512, 30, 30);//объект класса игрока
 	srand(time(0));
 	enemy.push_back(new Enemy(enemy1, 288, 288, 32, 32)); //создаем врагов и помещаем в список  
 	enemy.push_back(new Enemy(enemy2, 256, 320, 32, 32));
 	enemy.push_back(new Enemy(enemy3, 288, 320, 32, 32));
 
 	while (window.isOpen())  { //пока открыто
+		if (p->getGame() == true)
+		if (Keyboard::isKeyPressed(Keyboard::Enter)){ p->setLife(true); p->setGame(false); }
 		float time = clock.getElapsedTime().asMicroseconds(); //таймер логики        
-		if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время
+		if (p->getLife()) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время
 		clock.restart(); //перезапуск таймера
 		time = time / 800;
 
 		while (window.pollEvent(event))  //обработчик событий на закрытие
 		{
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+				
+			}
+				if (Keyboard::isKeyPressed(Keyboard::Q)) {
+					
+					window.close();
+				}
 		}
 
-		p.update(time); //обновление игрока
+		p->update(time); //обновление игрока
 
-		if (p.life)
+		if (p->getLife())
 		for (it = enemy.begin(); it != enemy.end(); it++)
 		{
 			(*it)->update(time); //запускаем метод update()  
 		}
 
-		if (p.life == true)
+		if (p->getLife() == true)
 		{//если игрок жив 
 			for (it = enemy.begin(); it != enemy.end(); it++)
 			{//бежим по списку врагов   
-				if ((p.getRect().intersects((*it)->getRect())))
+				if ((p->getRect().intersects((*it)->getRect())))
 				{
-					p.life = false;
-					std::cout << "Поражение";
+					p->setLife(false);
+					std::cout << "Game over";
 				}
 			}
 		}
@@ -84,17 +103,27 @@ void Interface::interact(){
 		}
 
 		std::ostringstream playerScoreString, gameTimeString;
-		playerScoreString << p.getScore(); gameTimeString << gameTime;//Получаем счёт и время в игре
-		text.setString("Score: " + playerScoreString.str() + "                                                                             Time: " + gameTimeString.str());//задаем строку тексту  
+		playerScoreString << p->getScore(); gameTimeString << gameTime;//Получаем счёт и время в игре
+		text.setString("Score: " + playerScoreString.str() + "                                                                        Time: " + gameTimeString.str());//задаем строку тексту  
 		text.setPosition(5, 2);//задаем позицию текста  
 		window.draw(text);//рисуем этот текст 
 
-		window.draw(p.sprite);//рисуем спрайт ПакМэна  
+		if (p->getScore() == 176) p->setLife(false);
+		if (p->getGame()){
+			menu.setString("Press ENTER for start");
+			menu.setPosition(100, 315);//задаем позицию текста  
+			window.draw(menu);//рисуем этот текст
+		}
+		if ((!p->getLife()) && (!p->getGame())){
+			menu.setString("Press Q for exit");
+			menu.setPosition(150, 315);//задаем позицию текста  
+			window.draw(menu);//рисуем этот текст
+		}
+		window.draw(p->sprite);//рисуем спрайт ПакМэна  
 		for (it = enemy.begin(); it != enemy.end(); it++)
 		{
 			window.draw((*it)->sprite); //рисуем призраков
 		}
 		window.display();
 	}
-
 }
