@@ -18,3 +18,38 @@ Interface::Interface(){
 Interface::~Interface()
 {
 };
+
+
+void Interface::interact(){
+
+	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+	sf::RenderWindow window(sf::VideoMode(608, 704, desktop.bitsPerPixel), "PacMan");
+	Player p(heroImage, 288, 512, 30, 30);//объект класса игрока
+	srand(time(0));
+	while (window.isOpen())  { //пока открыто
+		float time = clock.getElapsedTime().asMicroseconds(); //таймер логики        
+		if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое врем€
+		clock.restart(); //перезапуск таймера
+		time = time / 800;
+
+		while (window.pollEvent(event))  //обработчик событий на закрытие
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		p.update(time); //обновление игрока
+		window.clear();
+		for (int i = 0; i < 22; i++)
+		for (int j = 0; j < 19; j++)
+		{
+			if (inter.TileMap[i][j] == ' ')  s_map.setTextureRect(IntRect(0, 0, 32, 32));   //если пусто, то рисовать блок земли
+			if ((inter.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32)); //если преп€тствие, то рисовать блок стены
+
+			s_map.setPosition(j * 32, i * 32);
+			window.draw(s_map);   //рисовать
+		}
+		window.draw(p.sprite);//рисуем спрайт объекта УpФ класса УPlayerФ   
+		window.display();
+	}
+
+}
