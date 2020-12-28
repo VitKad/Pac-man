@@ -6,7 +6,6 @@ using namespace sf;
 Player::Player(Image &image, float X, float Y, int W, int H) :Entity(image, X, Y, W, H)
 {
 	playerScore = 0;
-	state = right;
 	dir = 1;
 	sprite.setTextureRect(IntRect(0, 0, w, h));
 }
@@ -46,22 +45,22 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 	for (int i = y / 32; i < (y + h) / 32; i++)//проходимс€ по элементам карты   
 	for (int j = x / 32; j<(x + w) / 32; j++)
 	{
-		if (mp.TileMap[i][j] == '0')//если естена
+		if (mp.TileMap[i][j] == '0')//если есть стена
 		{
-			if ((Dy > 0) && (dir == 2)) { y = i * 32 - h;  dy = 0; }//по Y     
-			if ((Dy < 0) && (dir == 2)){ y = i * 32 + 32; dy = 0; }//столкновение с верхними кра€ми     
-			if ((Dx > 0) && (dir == 1)) { x = j * 32 - w; dx = 0; }//с правым краем карты     
-			if ((Dx < 0) && (dir == 1)) { x = j * 32 + 32; dx = 0; }// с левым краем карты    
+			if ((Dy > 0) && (dir == 2)) { y = i * 32 - h;  dy = 0; }//столкновение снизу  
+			if ((Dy < 0) && (dir == 2)){ y = i * 32 + 32; dy = 0; }//столкновение сверху  
+			if ((Dx > 0) && (dir == 1)) { x = j * 32 - w; dx = 0; }//столкновение справа
+			if ((Dx < 0) && (dir == 1)) { x = j * 32 + 32; dx = 0; }//столкновение слева  
 		}
 		if (mp.TileMap[i][j] == 's')
 		{
-			setScore(playerScore++); //ƒобавлени очки игроку
+			setScore(++playerScore); //ƒобавлени очки игроку
 			mp.TileMap[i][j] = ' ';
 		}
 	}
 }
 
-void Player::update(float time)//метод "оживлени€/обновлени€" объекта класса.  
+void Player::update(float time)//обновление объекта класса.  
 {
 	if (life)
 	{//провер€ем, жив ли герой 
