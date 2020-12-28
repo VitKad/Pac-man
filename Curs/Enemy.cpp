@@ -50,9 +50,7 @@ void Enemy::checkCollisionWithMap(float Dx, float Dy)//проверка на препятствие
 void Enemy::update(float time)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Enter)) life = true;
-	if (life)  //если герой все еще жив
-	{
-	
+
 		switch (direction) //выбор направления
 		{
 		case 0:
@@ -120,8 +118,6 @@ void Enemy::update(float time)
 		checkCollisionWithMap(dx, 0);//обрабатываем столкновение по Х
 		checkCollisionWithMap(0, dy);//обрабатываем столкновение по Y
 		sprite.setPosition(x, y); 
-
-	}
 
 }
 
