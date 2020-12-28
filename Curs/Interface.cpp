@@ -22,6 +22,13 @@ Interface::Interface(){
 Interface::~Interface()
 {
 	delete p;
+	while (!enemy.empty())
+	{
+		it = enemy.begin();
+		delete *it;
+		enemy.erase(it);
+	}
+
 };
 
 
