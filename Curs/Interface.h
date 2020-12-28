@@ -16,6 +16,9 @@ private:
 	int gameTime; //игровое время
 	Map inter;
 	Event event;
+	Image map_image, heroImage, enemy1, enemy2, enemy3;
+	std::list<Entity*>  enemy; //список врагов         
+	std::list<Entity*>::iterator it; //итератор для списка врагов
 public:
 	Interface();
 	~Interface();
