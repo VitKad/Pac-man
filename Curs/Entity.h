@@ -1,7 +1,7 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 #include "stdafx.h"
-
+#include "map.h"
 class Entity {  ///Класс сущности//
 protected:
 	enum { left, right, up, down } state; //определяет состояние объекта 
