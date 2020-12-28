@@ -54,7 +54,7 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 		}
 		if (mp.TileMap[i][j] == 's')
 		{
-			setScore(playerScore++); //Добавлени очки игроку
+			setScore(++playerScore); //Добавлени очки игроку
 			mp.TileMap[i][j] = ' ';
 		}
 	}

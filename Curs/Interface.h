@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Entity.h"
+#include "Player.h"
 #include "stdafx.h"
 
 using namespace sf;
