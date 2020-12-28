@@ -41,3 +41,56 @@ void Enemy::checkCollisionWithMap(float Dx, float Dy)//проверка на препятствие
 
 
 
+void Enemy::update(float time)
+{
+	if (life)  //если герой все еще жив
+	{ 
+		switch (direction) //выбор направления
+		{
+		case 0:
+		{//вправо
+				  dx = speed; //скорость по х
+				  dy = 0; //скорость по у
+				  CurrentFrame += 0.005*time; //просчтет кадров
+				  if (CurrentFrame > 3) CurrentFrame -= 3;//если достигнет 3, то рисовать спрайт заново
+				  sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
+				  break;
+		}
+		case 1:
+		{//влево  
+				  dx = -speed;
+				  dy = 0;
+				  CurrentFrame += 0.005*time;
+				  if (CurrentFrame > 3) CurrentFrame -= 3;
+				  sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
+				  break;
+		}
+		case 2:
+		{//вверх  
+				  dy = -speed;
+				  dx = 0;
+				  CurrentFrame += 0.005*time;
+				  if (CurrentFrame > 3) CurrentFrame -= 3;
+				  sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
+				  break;
+		}
+		case 3:
+		{//вниз
+				  dy = speed;
+				  dx = 0;
+				  CurrentFrame += 0.005*time;
+				  if (CurrentFrame > 3) CurrentFrame -= 3;
+				  sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
+				  break;
+		}
+		}
+
+		x += dx*time; //движение по х  
+		checkCollisionWithMap(dx, 0);//обработка препятствия
+		y += dy*time; //движение по у
+		checkCollisionWithMap(0, dy);
+		sprite.setPosition(x, y); 
+	}
+
+}
+
