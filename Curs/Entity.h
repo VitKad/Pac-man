@@ -4,7 +4,6 @@
 #include "map.h"
 class Entity {  ///Класс сущности//
 protected:
-	enum { left, right, up, down } state; //определяет состояние объекта 
 	float dx, dy, x, y, speed;  //dx,dy изменение направления, x,y координаты, speed скорость изменения
 	int w, h, stone; //w-ширина, h-длина нашей сущности
 	Texture texture;//текстура сущности
